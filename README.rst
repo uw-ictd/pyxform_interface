@@ -9,7 +9,7 @@ Installation
 
 	cd [your Django project directory]
 
-	git pull git://github.com/UW-ICTD/xlsform.git
+	git pull git://github.com/UW-ICTD/pyxform-interface.git
 	
 	pip install -r pyxform/requirements.pip
 	
