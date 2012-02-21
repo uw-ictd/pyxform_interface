@@ -3,6 +3,8 @@ This is a Django web interface for converting xls spreadsheets to xforms for use
 Installation
 ============
 
+::
+
 	Setup a Django server (for one click solutions see Turnkey and Bitnami)
 
 	cd [your Django project directory]
