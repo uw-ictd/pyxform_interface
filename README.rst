@@ -19,3 +19,11 @@ Installation
 	pip install -r pyxform-interface/requirements.pip
 
 - Make some undocumented changes to setup.py to urls.py
+
+- When you are done reset the server::
+
+	Bitnami:
+	sudo /opt/bitnami/ctlscript.sh restart apache
+	Turnkey:
+	/etc/init.d/apache2 restart
+	
