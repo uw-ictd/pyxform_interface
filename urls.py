@@ -7,7 +7,7 @@ import os
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'xlsform.views.index'),
+    url(r'^$', 'views.index'),
 
     (r'^tmp/(?P<path>.*)$', 'views.serve_xform'),
 
