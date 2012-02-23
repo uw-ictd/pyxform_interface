@@ -5,16 +5,19 @@ Installation
 
 - Setup a Django server (for one click solutions see Turnkey and Bitnami)
 
-- Install some packages (may require sudo)::
-
-	apt-get install openjdk-6-jre python-setuptools git-core
-	easy_install pip 
-
-- Download and install this repo::
+- Download this repo::
 
 	cd [your Django project directory]
 
 	git clone git://github.com/UW-ICTD/pyxform-interface.git
+
+- Install the dependencies::
+
+	#Here things become a bit tricky if you use bitnami
+
+	apt-get install openjdk-6-jre python-setuptools git-core
+
+	easy_install pip 
 
 	pip install -r pyxform-interface/requirements.pip
 
@@ -27,3 +30,4 @@ Installation
 	Turnkey:
 	/etc/init.d/apache2 restart
 	
+Alternatively you can touch the wsgi handler
