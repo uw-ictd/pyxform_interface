@@ -11,7 +11,9 @@ urlpatterns = patterns('',
 
     (r'^tmp/(?P<path>.*)$', 'pyxform_interface.views.serve_xform'),
 
-    (r'^css/(?P<path>.*)$', 'django.views.static.serve'),
+    (r'^css/(?P<path>.*)$', 'django.views.static.serve'), {
+        'document_root': ''
+    },
 
 #    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
 #        'document_root': settings.MEDIA_ROOT

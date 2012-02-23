@@ -1,14 +1,16 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django import forms
+
 import datetime
 import tempfile
-import pyxform
 import os
-from django import forms
 
 import pyxform
 from pyxform import xls2json
+
+SERVER_TMP_DIR = '/tmp'
 
 class UploadFileForm(forms.Form):
     file  = forms.FileField()
@@ -30,8 +32,9 @@ def index(request):
             warnings = None
             
             filename, ext = os.path.splitext(request.FILES['file'].name)
+            
             #Make a randomly generated directory to prevent name collisions
-            temp_dir = tempfile.mkdtemp(dir='/tmp')
+            temp_dir = tempfile.mkdtemp(dir=SERVER_TMP_DIR)
             xml_path = os.path.join(temp_dir, filename + '.xml')
             
             #Init the output xml file.
@@ -50,7 +53,7 @@ def index(request):
                 error = 'Error: ' + str(e)
             
             return render_to_response('result.html', {
-                'xml_path' : xml_path,
+                'xml_path' : '.' + xml_path,
                 'error': error,
                 'warnings': warnings
             })
@@ -62,10 +65,10 @@ def index(request):
     })
     
 def serve_xform(request, path):
-    fo = open(os.path.join('/tmp',path))
+    fo = open(os.path.join(SERVER_TMP_DIR,path))
     data = fo.read()
     fo.close()
     response = HttpResponse(mimetype='application/octet-stream')
-    #response['Content-Disposition'] = 'attachment; filename=somefilename.pdf'
+    #response['Content-Disposition'] = 'attachment; filename=somefilename.xml'
     response.write(data)
     return response
