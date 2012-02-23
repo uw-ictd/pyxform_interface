@@ -5,7 +5,7 @@ Installation
 
 - Setup a Django server (for one click solutions see Turnkey and Bitnami)
 
-- Download and this repo::
+- Download this repo::
 
 	cd [your Django project directory]
 
@@ -30,3 +30,4 @@ Installation
 	Turnkey:
 	/etc/init.d/apache2 restart
 	
+Alternatively you can touch the wsgi handler
