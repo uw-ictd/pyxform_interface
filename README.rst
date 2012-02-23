@@ -9,19 +9,33 @@ Installation
 
 	cd [your Django project directory]
 
-	git clone git://github.com/UW-ICTD/pyxform-interface.git
+	git clone git://github.com/UW-ICTD/pyxform_interface.git
 
 - Install the dependencies::
-
-	#Here things become a bit tricky if you use bitnami
 
 	apt-get install openjdk-6-jre python-setuptools git-core
 
 	easy_install pip 
 
-	pip install -r pyxform-interface/requirements.pip
+	pip install -r pyxform_interface/requirements.pip
 
-- Make some undocumented changes to setup.py to urls.py
+	This gets tricky if you are using bitnami.
+	Don't use sudo when you run easy_install pip.
+	And when use use pip do this:
+
+	export PYTHONPATH=/opt/bitnami/python/lib/python2.6/site-packages
+	pip install --install-option="--prefix=/opt/bitnami/python" -r pyxform_interface/requirements.pip
+
+- Make the following changes to setup.py::
+
+	If 'django.middleware.csrf.CsrfViewMiddleware' is in MIDDLEWARE_CLASSES remove it.
+	Warning: this can cause issues for other apps you are running.
+
+	Add 'pyxform_interface' to INSTALLED_APPS
+
+- Add this line to the bottom of urls.py (in your Django project directory)::
+
+	urlpatterns += url(r'^xls2xform/', include('Project.pyxform_interface.urls'))
 
 - When you are done reset the server::
 
@@ -29,5 +43,3 @@ Installation
 	sudo /opt/bitnami/ctlscript.sh restart apache
 	Turnkey:
 	/etc/init.d/apache2 restart
-	
-Alternatively you can touch the wsgi handler
