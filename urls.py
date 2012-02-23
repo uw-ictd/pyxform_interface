@@ -7,9 +7,9 @@ import os
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'views.index'),
+    url(r'^$', 'pyxform_interface.views.index'),
 
-    (r'^tmp/(?P<path>.*)$', 'views.serve_xform'),
+    (r'^tmp/(?P<path>.*)$', 'pyxform_interface.views.serve_xform'),
 
     (r'^css/(?P<path>.*)$', 'django.views.static.serve'),
 
