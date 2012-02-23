@@ -35,7 +35,7 @@ Installation
 
 - Add this line to the bottom of urls.py (in your Django project directory)::
 
-	urlpatterns += url(r'^xls2xform/', include('Project.pyxform_interface.urls'))
+	urlpatterns += patterns('', url(r'^xls2xform/', include('Project.pyxform_interface.urls')))
 
 - When you are done reset the server::
 
