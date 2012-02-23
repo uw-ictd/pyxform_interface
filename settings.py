@@ -1,1 +1,0 @@
-# Django settings for pyxform project.
