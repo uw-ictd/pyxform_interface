@@ -3,13 +3,19 @@ This is a Django web interface for converting xls spreadsheets to xforms for use
 Installation
 ============
 
-- Setup a Django server (for one click solutions see Turnkey and Bitnami)
+- Setup a Django server and project::
 
-- Download this repo::
+	https://docs.djangoproject.com/en/1.4/intro/install/
+	
+	http://www.robotmedia.net/2011/04/how-to-create-an-amazon-ec2-instance-with-apache-php-and-mysql-lamp/
 
-	cd [your Django project directory]
+	https://docs.djangoproject.com/en/1.4/howto/deployment/wsgi/
+	
+	https://code.djangoproject.com/wiki/django_apache_and_mod_wsgi#dj_survey.wsgi
 
-	git clone git://github.com/UW-ICTD/pyxform_interface.git
+	https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startproject
+
+	waves hands
 
 - Install the dependencies::
 
@@ -19,12 +25,11 @@ Installation
 
 	pip install -r pyxform_interface/requirements.pip
 
-	This gets tricky if you are using bitnami.
-	Don't use sudo when you run easy_install pip.
-	And when use use pip do this:
+- Download this repo::
 
-	export PYTHONPATH=/opt/bitnami/python/lib/python2.6/site-packages
-	pip install --install-option="--prefix=/opt/bitnami/python" -r pyxform_interface/requirements.pip
+	cd [your Django project directory]
+
+	git clone git://github.com/UW-ICTD/pyxform_interface.git
 
 - Make the following changes to setup.py::
 
@@ -35,11 +40,13 @@ Installation
 
 - Add this line to the bottom of urls.py (in your Django project directory)::
 
-	urlpatterns += patterns('', url(r'^xls2xform/', include('Project.pyxform_interface.urls')))
+	urlpatterns += patterns('', url(r'^xlsform/', include('pyxform_interface.urls')))
+
+- If using mod_wsgi add this to wsgi.py::
+
+	sys.path.append('Your Django project directory path here')
 
 - When you are done reset the server::
 
-	Bitnami:
-	sudo /opt/bitnami/ctlscript.sh restart apache
-	Turnkey:
+	#This path varies by server
 	/etc/init.d/apache2 restart
