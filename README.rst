@@ -23,13 +23,13 @@ Installation
 
 	easy_install pip 
 
-	pip install -r pyxform_interface/requirements.pip
-
-- Download this repo::
+- Download this repo and install the requiresments::
 
 	cd [your Django project directory]
 
 	git clone git://github.com/UW-ICTD/pyxform_interface.git
+
+	pip install -r pyxform_interface/requirements.pip
 
 - Make the following changes to setup.py::
 
