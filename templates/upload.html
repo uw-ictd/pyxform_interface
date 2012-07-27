@@ -17,13 +17,34 @@ $(document).ready(function() {
 <body>
 	
 {% block upload %}
-<form enctype="multipart/form-data" method="post" action="#" class="well" id="myForm">
+<form enctype="multipart/form-data" method="post" class="well" id="myForm">
    <table>
        {{form.as_table}}
     </table>
     <input type="submit" value="Submit" id="submitBtn" class="btn" />
 </form>
 {% endblock %}
+
+{% if result %}
+	{% if error %}
+	<div class="alert alert-error">
+		{{ error }}
+	</div>
+	{% else %}
+		{% if success %}
+		<div class="alert alert-success">
+			<a href="{{ xml_path }}" class="btn btn-success">Download</a>
+		</div>
+		{% endif %}
+	{% endif %}
+	
+	{% for warning in warnings %}
+	    <div class="alert">
+	        {{ warning }}
+	    </div>
+	{% endfor %}
+{% endif %}
+
 <div id="output">
 </div>
 </body>
