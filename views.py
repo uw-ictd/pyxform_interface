@@ -52,10 +52,13 @@ def index(request):
             except Exception as e:
                 error = 'Error: ' + str(e)
             
-            return render_to_response('result.html', {
+            return render_to_response('upload.html', {
+                'form': UploadFileForm(),
                 'xml_path' : '.' + xml_path,
+                'success': not error,
                 'error': error,
-                'warnings': warnings
+                'warnings': warnings,
+                'result': True,
             })
     else:
         form = UploadFileForm() # An unbound form
