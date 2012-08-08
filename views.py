@@ -47,7 +47,7 @@ def index(request):
                 warnings = []
                 json_survey = xls2json.parse_file_to_json(xls_path, warnings=warnings)
                 survey = pyxform.create_survey_element_from_dict(json_survey)
-                survey.print_xform_to_file(xml_path)
+                survey.print_xform_to_file(xml_path, warnings=warnings)
                 
             except Exception as e:
                 error = 'Error: ' + str(e)
