@@ -6,6 +6,7 @@ from django import forms
 import datetime
 import tempfile
 import os
+import json
 
 import pyxform
 from pyxform import xls2json
@@ -22,6 +23,29 @@ def handle_uploaded_file(f, temp_dir):
         destination.write(chunk)
     destination.close()
     return xls_path
+
+def json_workbook(request):
+    error = None
+    warningsList = []
+    #Make a randomly generated directory to prevent name collisions
+    temp_dir = tempfile.mkdtemp(dir=SERVER_TMP_DIR)
+    form_name = request.POST.get('name', 'form')
+    output_filename = form_name + '.xml'
+    out_path = os.path.join(temp_dir, output_filename)
+    fo = open(out_path, "wb+")
+    fo.close()
+    try:
+        json_survey = xls2json.workbook_to_json(json.loads(request.POST['workbookJson']), form_name=form_name, warnings=warningsList)
+        survey = pyxform.create_survey_element_from_dict(json_survey)
+        survey.print_xform_to_file(out_path, warnings=warningsList)
+    except Exception as e:
+        error = str(e)
+    return HttpResponse(json.dumps({
+        'dir': os.path.split(temp_dir)[-1],
+        'name' : output_filename,
+        'error': error,
+        'warnings': warningsList,
+    }, indent=4), mimetype="application/json")
 
 def index(request):
     if request.method == 'POST': # If the form has been submitted...
