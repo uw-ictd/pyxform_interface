@@ -54,4 +54,4 @@ Installation
 Maintenance
 ============
 
-Forms are stored in the `/tmp` directory, and may need to be periodically removed. :tmpreaper:<http://manpages.ubuntu.com/manpages/hardy/man8/tmpreaper.8.html> can be used to remove older forms that are unlikely to be accessed.
+Forms are stored in the `/tmp` directory, and may need to be periodically removed. :tmpreaper:`<http://manpages.ubuntu.com/manpages/hardy/man8/tmpreaper.8.html>` can be used to remove older forms that are unlikely to be accessed.
