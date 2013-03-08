@@ -5,6 +5,8 @@ Installation
 
 - Setup a Django server and project::
 
+	Some useful links:
+
 	https://docs.djangoproject.com/en/1.4/intro/install/
 	
 	http://www.robotmedia.net/2011/04/how-to-create-an-amazon-ec2-instance-with-apache-php-and-mysql-lamp/
@@ -15,15 +17,13 @@ Installation
 
 	https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startproject
 
-	waves hands
-
 - Install the dependencies::
 
 	apt-get install openjdk-6-jre python-setuptools git-core
 
 	easy_install pip 
 
-- Download this repo and install the requiresments::
+- Download this repo and install the requirements::
 
 	cd [your Django project directory]
 
@@ -50,3 +50,8 @@ Installation
 
 	#This path varies by server
 	/etc/init.d/apache2 restart
+
+Maintenance
+============
+
+Forms are stored in the `/tmp` directory, and may need to be periodically removed. [tmpreaper](http://manpages.ubuntu.com/manpages/hardy/man8/tmpreaper.8.html) can be used to remove older forms that are unlikely to be accessed.
