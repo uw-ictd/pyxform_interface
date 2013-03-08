@@ -1,4 +1,4 @@
-This is a Django web interface for converting xls spreadsheets to xforms for use with Open Data Kit.
+This is a Django web interface for `pyxform <https://github.com/UW-ICTD/pyxform>`_ (the xlsform converter for ODK Collect).
 
 Installation
 ============
