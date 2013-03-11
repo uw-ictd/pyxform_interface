@@ -55,3 +55,5 @@ Maintenance
 ============
 
 Forms are stored in the `/tmp` directory, and may need to be periodically removed. `tmpreaper <http://manpages.ubuntu.com/manpages/hardy/man8/tmpreaper.8.html>`_ can be used to remove older forms that are unlikely to be accessed.
+
+`It is possible to configure Django to email error reports. <https://docs.djangoproject.com/en/dev/howto/error-reporting/>`
