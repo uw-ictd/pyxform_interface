@@ -1,9 +1,9 @@
-This is a Django web interface for `pyxform <https://github.com/UW-ICTD/pyxform>`_ (the xlsform converter for ODK Collect).
+This is a Django web interface for [pyxform](https://github.com/UW-ICTD/pyxform) (the xlsform converter for ODK Collect).
 
 Installation
 ============
 
-- Setup a Django server and project::
+- Setup a Django server and project:
 
 Some useful links:
 
@@ -17,13 +17,13 @@ https://code.djangoproject.com/wiki/django_apache_and_mod_wsgi#dj_survey.wsgi
 
 https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startproject
 
-- Install the dependencies::
+- Install the dependencies:
 
 	apt-get install openjdk-6-jre python-setuptools git-core
 
 	easy_install pip 
 
-- Download this repo and install the requirements::
+- Download this repo and install the requirements:
 
 	cd [your Django project directory]
 
@@ -31,7 +31,7 @@ https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startprojec
 
 	pip install -r pyxform_interface/requirements.pip
 
-- Make the following changes to setup.py::
+- Make the following changes to setup.py:
 
 	If 'django.middleware.csrf.CsrfViewMiddleware' is in MIDDLEWARE_CLASSES remove it.
 	Warning: this can cause issues for other apps you are running.
@@ -54,17 +54,18 @@ https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startprojec
 Maintenance
 ============
 
-Forms are stored in the `/tmp` directory, and may need to be periodically removed. `tmpreaper <http://manpages.ubuntu.com/manpages/hardy/man8/tmpreaper.8.html>`_ can be used to remove older forms that are unlikely to be accessed.
+Forms are stored in the `/tmp` directory, and may need to be periodically removed. [tmpreaper](http://manpages.ubuntu.com/manpages/hardy/man8/tmpreaper.8.html>) can be used to remove older forms that are unlikely to be accessed.
 
-`It is possible to configure Django to email error reports. <https://docs.djangoproject.com/en/dev/howto/error-reporting/>`_
+[It is possible to configure Django to email error reports.](https://docs.djangoproject.com/en/dev/howto/error-reporting/>)
 
 Updating the underlying pyxform/xlsform code
 ============================================
 
-	#cd to the pyxform_interface directory
-	cd ~/django/xlsform/xlsform/pyxform_interface
-	#install the latest version of pyxform from the repository listed in requirements.pip
-	sudo pip install -r requirements.pip
-	#restart apache for changes to take effect
-	sudo /etc/init.d/apache2 graceful
-
+```bash
+#cd to the pyxform_interface directory
+cd ~/django/xlsform/xlsform/pyxform_interface
+#install the latest version of pyxform from the repository listed in requirements.pip
+sudo pip install -r requirements.pip
+#restart apache for changes to take effect
+sudo /etc/init.d/apache2 graceful
+```
