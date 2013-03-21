@@ -19,17 +19,18 @@ https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startprojec
 
 - Install the dependencies:
 
-	apt-get install openjdk-6-jre python-setuptools git-core
-
-	easy_install pip 
+```bash
+apt-get install openjdk-6-jre python-setuptools git-core
+easy_install pip 
+```
 
 - Download this repo and install the requirements:
 
-	cd [your Django project directory]
-
-	git clone git://github.com/UW-ICTD/pyxform_interface.git
-
-	pip install -r pyxform_interface/requirements.pip
+```bash
+cd [your Django project directory]
+git clone git://github.com/UW-ICTD/pyxform_interface.git
+pip install -r pyxform_interface/requirements.pip
+```
 
 - Make the following changes to setup.py:
 
@@ -38,18 +39,24 @@ https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startprojec
 
 	Add 'pyxform_interface' to INSTALLED_APPS
 
-- Add this line to the bottom of urls.py (in your Django project directory)::
+- Add this line to the bottom of urls.py (in your Django project directory):
 
-	urlpatterns += patterns('', url(r'^xlsform/', include('pyxform_interface.urls')))
+```python
+urlpatterns += patterns('', url(r'^xlsform/', include('pyxform_interface.urls')))
+```
 
-- If using mod_wsgi add this to wsgi.py::
+- If using mod_wsgi add this to wsgi.py:
 
-	sys.path.append('Your Django project directory path here')
+```python
+sys.path.append('Your Django project directory path here')
+```
 
-- When you are done reset the server::
+- When you are done reset the server:
 
-	#This path varies by server
-	/etc/init.d/apache2 restart
+```bash
+#This path varies by server
+/etc/init.d/apache2 restart
+```
 
 Maintenance
 ============
