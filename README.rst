@@ -5,17 +5,17 @@ Installation
 
 - Setup a Django server and project::
 
-	Some useful links:
+Some useful links:
 
-	https://docs.djangoproject.com/en/1.4/intro/install/
-	
-	http://www.robotmedia.net/2011/04/how-to-create-an-amazon-ec2-instance-with-apache-php-and-mysql-lamp/
+https://docs.djangoproject.com/en/1.4/intro/install/
 
-	https://docs.djangoproject.com/en/1.4/howto/deployment/wsgi/
-	
-	https://code.djangoproject.com/wiki/django_apache_and_mod_wsgi#dj_survey.wsgi
+http://www.robotmedia.net/2011/04/how-to-create-an-amazon-ec2-instance-with-apache-php-and-mysql-lamp/
 
-	https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startproject
+https://docs.djangoproject.com/en/1.4/howto/deployment/wsgi/
+
+https://code.djangoproject.com/wiki/django_apache_and_mod_wsgi#dj_survey.wsgi
+
+https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startproject
 
 - Install the dependencies::
 
@@ -57,3 +57,14 @@ Maintenance
 Forms are stored in the `/tmp` directory, and may need to be periodically removed. `tmpreaper <http://manpages.ubuntu.com/manpages/hardy/man8/tmpreaper.8.html>`_ can be used to remove older forms that are unlikely to be accessed.
 
 `It is possible to configure Django to email error reports. <https://docs.djangoproject.com/en/dev/howto/error-reporting/>`_
+
+Updating the underlying pyxform/xlsform code
+============================================
+
+	#cd to the pyxform_interface directory
+	cd ~/django/xlsform/xlsform/pyxform_interface
+	#install the latest version of pyxform from the repository listed in requirements.pip
+	sudo pip install -r requirements.pip
+	#restart apache for changes to take effect
+	sudo /etc/init.d/apache2 graceful
+
