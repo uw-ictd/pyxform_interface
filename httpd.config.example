@@ -1,0 +1,23 @@
+ServerName xlsform
+<Location "/xlsform">
+     RedirectMatch ^/xlsform$ /xlsform/
+</Location>
+
+WSGIScriptAlias /xlsform /home/ubuntu/django/xlsform/xlsform/wsgi.py
+WSGIPythonPath /home/ubuntu/django/xlsform
+WSGIApplicationGroup xlsform
+WSGIDaemonProcess xlsform user=www-data group=www-data threads=10 maximum-requests=100 python-path=/home/ubuntu/django/xlsform shutdown-timeout=100
+#WSGIProcessGroup %{GLOBAL}
+WSGIProcessGroup xlsform
+WSGIRestrictEmbedded On
+
+<Directory /home/ubuntu/django/xlsform/xlsform>
+        <Files wsgi.py>
+                Order deny,allow
+                Allow from all
+        </Files>
+</Directory>
+<Directory /home/ubuntu/django/xlsform/xlsform>
+        Order deny,allow
+        Allow from all
+</Directory>
