@@ -79,7 +79,7 @@ def index(request):
             return render_to_response('upload.html', {
                 'form': UploadFileForm(),
                 'xml_path' : '.' + xml_path,
-                'xml_url' : request.build_absolute_uri(xml_path),
+                'xml_url' : request.build_absolute_uri(os.path.join('xlsform', xml_path)),
                 'success': not error,
                 'error': error,
                 'warnings': warnings,
