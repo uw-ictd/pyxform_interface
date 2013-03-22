@@ -17,6 +17,10 @@ https://code.djangoproject.com/wiki/django_apache_and_mod_wsgi#dj_survey.wsgi
 
 https://docs.djangoproject.com/en/1.4/ref/django-admin/#django-admin-startproject
 
+In my case, using an apache server that was also running a php site,
+I ended up having to mess around with the httpd.conf file.
+[This is what I ended up with.](https://github.com/UW-ICTD/pyxform_interface/blob/master/httpd.conf.example)
+
 - Install the dependencies:
 
 ```bash
