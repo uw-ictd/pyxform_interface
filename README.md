@@ -65,12 +65,13 @@ sys.path.append('Your Django project directory path here')
 Maintenance
 ============
 
-Forms are stored in the `/tmp` directory, and may need to be periodically removed. [tmpreaper](http://manpages.ubuntu.com/manpages/hardy/man8/tmpreaper.8.html>) can be used to remove older forms that are unlikely to be accessed.
+Forms are stored in the `/tmp` directory, and may need to be periodically removed to free up disk space.
+This doesn't need to happen very often. AWS instances come with an ~8GB drive mounted.
+[tmpreaper](http://manpages.ubuntu.com/manpages/hardy/man8/tmpreaper.8.html>) can be used to remove older forms that are unlikely to be accessed.
 
-[It is possible to configure Django to email error reports.](https://docs.djangoproject.com/en/dev/howto/error-reporting/>)
+## Updating the underlying pyxform/xlsform library
 
-Updating the underlying pyxform/xlsform code
-============================================
+To update the xlsform library follow these steps:
 
 ```bash
 #cd to the pyxform_interface directory
@@ -80,3 +81,10 @@ sudo pip install -r requirements.pip
 #restart apache for changes to take effect
 sudo /etc/init.d/apache2 graceful
 ```
+The [UW-ICTD pyxform repository](https://github.com/UW-ICTD/pyxform) will be used for the update.
+This can be set to another repository in the requirements.pip file.
+
+## Additional Notes:
+
+[It is possible to configure Django to email error reports.](https://docs.djangoproject.com/en/dev/howto/error-reporting/>)
+
