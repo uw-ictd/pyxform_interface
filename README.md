@@ -28,6 +28,15 @@ apt-get install openjdk-6-jre python-setuptools git-core
 easy_install pip 
 ```
 
+- Additional dependencies:
+
+These were not in the original instructions, but the pip install fails with many warnings if these are not executed. 
+Furthermore, the development version of python seems to be required when working with the lxml extension:
+
+```bash
+apt-get install gcc libxslt-dev python2.6-dev
+```
+
 - Download this repo and install the requirements:
 
 ```bash
