@@ -34,7 +34,10 @@ These were not in the original instructions, but the pip install fails with many
 Furthermore, the development version of python seems to be required when working with the lxml extension:
 
 ```bash
-apt-get install gcc libxslt-dev python2.6-dev
+apt-get install gcc
+apt-get install libxml2-dev
+apt-get install libxslt-dev
+apt-get install python2.6-dev
 ```
 
 - Download this repo and install the requirements:
