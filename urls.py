@@ -9,7 +9,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = patterns('',
     url(r'^json_workbook/', 'pyxform_interface.views.json_workbook'),
     url(r'^$', 'pyxform_interface.views.index'),
-    (r'^tmp/(?P<path>.*)$', 'pyxform_interface.views.serve_xform'),
+    (r'^tmp/(?P<path>.*)$', 'pyxform_interface.views.serve_file'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

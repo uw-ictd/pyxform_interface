@@ -39,6 +39,9 @@ $(document).ready(function() {
 		{% if success %}
 		<div class="alert alert-success">
 			<a href="{{ xml_path }}" class="btn btn-success">Download</a>
+			{% if itemsets_url %}
+			<a href="{{ itemsets_url }}" class="btn btn-success">Download external choices csv</a>
+			{% endif %}
 			<a href="http://enketo.org/webform/preview?form={{ xml_url }}" target="_blank" class="btn btn-success">Preview in enketo</a>
 		</div>
 		{% endif %}
