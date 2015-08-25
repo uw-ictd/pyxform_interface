@@ -10,6 +10,7 @@ import json
 
 import pyxform
 from pyxform import xls2json
+from pyxform.utils import sheet_to_csv
 
 SERVER_TMP_DIR = '/tmp/tmp_www-data'
 
@@ -47,6 +48,22 @@ def json_workbook(request):
         'warnings': warningsList,
     }, indent=4), mimetype="application/json")
 
+def has_external_choices(json_struct):
+    """
+    Returns true if a select one external prompt is used in the survey.
+    """
+    if isinstance(json_struct, dict):
+        for k,v in json_struct.items():
+            if k == u"type" and v.startswith(u"select one external"):
+                return True
+            elif has_external_choices(v):
+                return True
+    elif isinstance(json_struct, list):
+        for v in json_struct:
+            if has_external_choices(v):
+                return True
+    return False
+
 def index(request):
     if request.method == 'POST': # If the form has been submitted...
         form = UploadFileForm(request.POST, request.FILES) # A form bound to the POST data
@@ -60,6 +77,7 @@ def index(request):
             #Make a randomly generated directory to prevent name collisions
             temp_dir = tempfile.mkdtemp(dir=SERVER_TMP_DIR)
             xml_path = os.path.join(temp_dir, filename + '.xml')
+            itemsets_url = None
 
             relpath = os.path.relpath(xml_path, SERVER_TMP_DIR)
 
@@ -75,6 +93,18 @@ def index(request):
                 survey = pyxform.create_survey_element_from_dict(json_survey)
                 survey.print_xform_to_file(xml_path, warnings=warnings)
                 
+                if has_external_choices(json_survey):
+                    # Create a csv for the external choices
+                    itemsets_csv = os.path.join(os.path.split(xls_path)[0],
+                        "itemsets.csv")
+                    relpath_itemsets_csv = os.path.relpath(itemsets_csv, SERVER_TMP_DIR)
+                    choices_exported = sheet_to_csv(xls_path, itemsets_csv,
+                        "external_choices")
+                    if not choices_exported:
+                        warnings += ["Could not export itemsets.csv, "
+                            "perhaps the external choices sheet is missing."]
+                    else:
+                        itemsets_url = request.build_absolute_uri('./downloads/' + relpath_itemsets_csv)
             except Exception as e:
                 error = 'Error: ' + str(e)
             
@@ -82,6 +112,7 @@ def index(request):
                 'form': UploadFileForm(),
                 'xml_path' : request.build_absolute_uri('./downloads/' + relpath),
                 'xml_url' : request.build_absolute_uri('./downloads/' + relpath),
+                'itemsets_url' : itemsets_url,
                 'success': not error,
                 'error': error,
                 'warnings': warnings,
@@ -94,7 +125,7 @@ def index(request):
         'form': form,
     })
     
-def serve_xform(request, path):
+def serve_file(request, path):
     fo = open(os.path.join(SERVER_TMP_DIR,path))
     data = fo.read()
     fo.close()
