@@ -11,7 +11,7 @@ import json
 import pyxform
 from pyxform import xls2json
 
-SERVER_TMP_DIR = '/tmp'
+SERVER_TMP_DIR = '/tmp/tmp_www-data'
 
 class UploadFileForm(forms.Form):
     file  = forms.FileField()
@@ -60,7 +60,9 @@ def index(request):
             #Make a randomly generated directory to prevent name collisions
             temp_dir = tempfile.mkdtemp(dir=SERVER_TMP_DIR)
             xml_path = os.path.join(temp_dir, filename + '.xml')
-            
+
+            relpath = os.path.relpath(xml_path, SERVER_TMP_DIR)
+
             #Init the output xml file.
             fo = open(xml_path, "wb+")
             fo.close()
@@ -78,8 +80,8 @@ def index(request):
             
             return render_to_response('upload.html', {
                 'form': UploadFileForm(),
-                'xml_path' : '.' + xml_path,
-                'xml_url' : request.build_absolute_uri('.' + xml_path),
+                'xml_path' : './downloads/' + relpath,
+                'xml_url' : request.build_absolute_uri('./downloads/' + relpath),
                 'success': not error,
                 'error': error,
                 'warnings': warnings,
