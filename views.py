@@ -28,6 +28,10 @@ def handle_uploaded_file(f, temp_dir):
 def json_workbook(request):
     error = None
     warningsList = []
+	
+    if not(os.access(SERVER_TMP_DIR, os.F_OK)):
+	    os.mkdir(SERVER_TMP_DIR)
+		
     #Make a randomly generated directory to prevent name collisions
     temp_dir = tempfile.mkdtemp(dir=SERVER_TMP_DIR)
     form_name = request.POST.get('name', 'form')
@@ -73,6 +77,9 @@ def index(request):
             warnings = None
             
             filename, ext = os.path.splitext(request.FILES['file'].name)
+			
+            if not(os.access(SERVER_TMP_DIR, os.F_OK)):
+                os.mkdir(SERVER_TMP_DIR)		
             
             #Make a randomly generated directory to prevent name collisions
             temp_dir = tempfile.mkdtemp(dir=SERVER_TMP_DIR)
