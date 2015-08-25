@@ -48,7 +48,7 @@ and the admin url line:
 #   url(r'^admin/', include(admin.site.urls)),
   
 add below that admin url line:
-    url(r'', include(pyxform_interface.urls)),
+    url(r'', include('pyxform_interface.urls')),
 
 save and exit
 ======================================
@@ -101,7 +101,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': '/var/log/django.log'
+            'filename': '/var/log/django/django.log'
         }
     },
     'loggers': {
@@ -115,11 +115,36 @@ LOGGING = {
 ======================================
 (still within /home/ubuntu/django/xlsform/xlsform)
 
-sudo mkdir python_interface
-cd python_interface
 sudo git clone git://github.com/UW-ICTD/pyxform_interface.git
-sudo pip install -r pyxform_interface/requirements.pip
+cd pyxform_interface
+sudo pip install -r requirements.pip
 
 ======================================
 Now, we need to configure Apache2
+
+cd /etc/apache2
+
+copy the apache2.conf and other files into that directory. 
+
+Basic changes are to add <Directory> grants in apache2.conf and lower the log level to info.
+And modify the wsgi.conf to launch the pyxform_interface code properly.
+
+======================================
+Finally:
+
+cd /tmp
+mkdir tmp_www-data
+sudo chgrp www-data tmp_www-data
+sudo chown www-data tmp_www-data
+
+cd /var/log
+mkdir django
+sudo chgrp www-data django
+sudo chown www-data django
+
+And, lastly, restart the apache2 server:
+/etc/init.d/apache2 restart
+
+
+
 

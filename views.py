@@ -80,7 +80,7 @@ def index(request):
             
             return render_to_response('upload.html', {
                 'form': UploadFileForm(),
-                'xml_path' : './downloads/' + relpath,
+                'xml_path' : request.build_absolute_uri('./downloads/' + relpath),
                 'xml_url' : request.build_absolute_uri('./downloads/' + relpath),
                 'success': not error,
                 'error': error,
