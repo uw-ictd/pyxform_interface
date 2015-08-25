@@ -1,4 +1,13 @@
-Setup instructions:
+To update the deployment, perform:
+
+cd django/xlsform/xlsform/pyxform_interface
+sudo git pull
+sudo pip install -r requirements.pip
+
+============================================
+SETUP 
+============================================
+These are the setup instructions followed when setting up an Ubuntu 14.04 LTS instance from scratch:
 
 Start with an AMI image from Canonical:
 
@@ -47,7 +56,7 @@ comment out admin lines:
 and the admin url line:
 #   url(r'^admin/', include(admin.site.urls)),
   
-add below that admin url line:
+add below that admin url line (be careful to quote the include string!):
     url(r'', include('pyxform_interface.urls')),
 
 save and exit
