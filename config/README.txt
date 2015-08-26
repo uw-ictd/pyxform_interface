@@ -106,12 +106,19 @@ TEMPLATE_LOADERS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+	'formatters': {
+	    'basic': {
+		     'format': "%(asctime)s:%(pathname)s:%(lineno)s: %(message)s",
+			 'datefmt': "%d/%b/%Y %H:%M%S"
+		}
+	},
     'handlers': {
         'file': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
 			'when': 'w0',
-            'filename': '/var/log/django/django.log'
+            'filename': '/var/log/django/django.log',
+			'formatter': 'basic'
         }
     },
     'loggers': {
