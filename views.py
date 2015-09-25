@@ -14,7 +14,6 @@ from pyxform.utils import sheet_to_csv
 
 SERVER_TMP_DIR = '/tmp/tmp_www-data'
 
-@python_2_unicode_compatible
 class UploadFileForm(forms.Form):
     file  = forms.FileField()
 
