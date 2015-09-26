@@ -7,6 +7,7 @@ import datetime
 import tempfile
 import os
 import json
+import codecs
 
 import pyxform
 from pyxform import xls2json
@@ -37,8 +38,8 @@ def json_workbook(request):
     form_name = request.POST.get('name', 'form')
     output_filename = form_name + '.xml'
     out_path = os.path.join(temp_dir, output_filename)
-    fo = open(out_path, "wb+")
-    fo.close()
+    if os.access(out_path, os.F_OK):
+	    os.remove(out_path)
     try:
         json_survey = xls2json.workbook_to_json(json.loads(request.POST['workbookJson']), form_name=form_name, warnings=warningsList)
         survey = pyxform.create_survey_element_from_dict(json_survey)
@@ -133,10 +134,10 @@ def index(request):
     })
     
 def serve_file(request, path):
-    fo = open(os.path.join(SERVER_TMP_DIR,path))
+    fo = codecs.open(os.path.join(SERVER_TMP_DIR,path), mode='r', encoding='utf-8')
     data = fo.read()
     fo.close()
-    response = HttpResponse(mimetype='application/octet-stream')
+    response = HttpResponse(content_type='application/octet-stream')
     #response['Content-Disposition'] = 'attachment; filename=somefilename.xml'
     response.write(data)
     return response

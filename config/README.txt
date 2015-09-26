@@ -34,9 +34,17 @@ sudo apt-get install git-core
 sudo apt-get install gcc libxml2-dev libxslt-dev libz-dev
 sudo apt-get install apache2 libapache2-mod-wsgi
 sudo apt-get install python-pip
-sudo apt-get install python-django
+sudo apt-get --purge autoremove python-django
+sudo bash
+> wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+> exit
+sudo pip install --upgrade pip
 
 sudo pip install xlrd
+sudo pip install --upgrade xlrd
+sudo pip install --upgrade lxml
+
+sudo pip install Django
 
 mkdir django
 cd django
@@ -66,7 +74,7 @@ sudo vi wsgi.py
 add sys to the import list:
 import os, sys
 
-at the bottom of the file, add:
+at the bottom of the file, BEFORE application = get_wsgi_application();, add:
 sys.path.append('/home/ubuntu/django/xlsform/xlsform')
 
 save and exit
@@ -147,6 +155,24 @@ Basic changes are to add <Directory> grants in apache2.conf and lower the log le
 And modify the wsgi.conf to launch the pyxform_interface code properly.
 
 ======================================
+sudo apt-get tmpreaper
+
+sudo vi /etc/tmpreaper.conf
+and comment out the SHOWWARNING=true line
+
+sudo crontab -e
+
+and add these lines:
+
+@reboot mkdir -p /tmp/tmp_www-data && chgrp www-data /tmp/tmp_www-data && chown www-data /tmp/tmp_www-data
+
+0 0 * * 1 tmpreaper 30d /tmp/tmp_www-data
+
+0 1 * * 1 tmpreaper 30d /var/log/apache2
+
+
+
+=====================================
 Finally:
 
 cd /tmp
@@ -160,7 +186,7 @@ sudo chgrp www-data django
 sudo chown www-data django
 
 And, lastly, restart the apache2 server:
-/etc/init.d/apache2 restart
+sudo /etc/init.d/apache2 restart
 
 
 
