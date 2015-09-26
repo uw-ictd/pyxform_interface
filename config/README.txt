@@ -41,8 +41,6 @@ sudo bash
 sudo pip install --upgrade pip
 
 sudo pip install xlrd
-sudo pip install --upgrade xlrd
-sudo pip install --upgrade lxml
 
 sudo pip install Django
 
