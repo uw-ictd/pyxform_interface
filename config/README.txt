@@ -149,8 +149,12 @@ cd /etc/apache2
 
 copy the apache2.conf and other files into that directory. 
 
+sudo a2enmod reqtimeout
+
 Basic changes are to add <Directory> grants in apache2.conf and lower the log level to info.
-And modify the wsgi.conf to launch the pyxform_interface code properly.
+Modify the wsgi.conf to launch the pyxform_interface code properly.
+Set a high thread count and total connection count.
+And set overall request and response data streaming timeouts.
 
 ======================================
 sudo apt-get tmpreaper
