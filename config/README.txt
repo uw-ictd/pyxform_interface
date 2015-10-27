@@ -149,10 +149,15 @@ sudo pip install -r requirements.pip
 ======================================
 Now, we need to configure Apache2
 
+First, install the new mod_wsgi (mod_wsgi-py27.so) via:
+
+sudo mod_wsgi-express install-module
+
 cd /etc/apache2
 
 copy the apache2.conf and other files into that directory. 
 
+sudo a2enmod wsgi-py27
 sudo a2enmod reqtimeout
 
 Basic changes are to add <Directory> grants in apache2.conf and lower the log level to info.
