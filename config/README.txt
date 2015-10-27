@@ -32,7 +32,9 @@ sudo apt-get install python-setuptools
 sudo apt-get install python2.7-dev
 sudo apt-get install git-core
 sudo apt-get install gcc libxml2-dev libxslt-dev libz-dev
-sudo apt-get install apache2 libapache2-mod-wsgi
+sudo apt-get install apache2
+sudo apt-get install apache2-mpm-worker
+sudo apt-get install apache2-threaded-dev
 sudo apt-get install python-pip
 sudo apt-get --purge autoremove python-django
 sudo bash
@@ -41,6 +43,8 @@ sudo bash
 sudo pip install --upgrade pip
 
 sudo pip install xlrd
+
+sudo pip install mod_wsgi
 
 sudo pip install Django
 
@@ -152,7 +156,9 @@ copy the apache2.conf and other files into that directory.
 sudo a2enmod reqtimeout
 
 Basic changes are to add <Directory> grants in apache2.conf and lower the log level to info.
-Modify the wsgi.conf to launch the pyxform_interface code properly.
+
+Use the supplied wsgi-py27.conf and wsgi-py27.load to launch the 
+pyxform_interface code with the appropriate configuration.
 Set a high thread count and total connection count.
 And set overall request and response data streaming timeouts.
 
