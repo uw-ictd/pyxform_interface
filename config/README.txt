@@ -179,12 +179,11 @@ and add these lines:
 
 @reboot mkdir -p /tmp/tmp_www-data && chgrp www-data /tmp/tmp_www-data && chown www-data /tmp/tmp_www-data
 
-0 0 * * 1 tmpreaper --mtime-dir --runtime=480 8d /tmp/tmp_www-data
+20 0 * * * tmpreaper --mtime-dir --runtime=480 8d /tmp/tmp_www-data
 
-0 0 * * 1 find /tmp/tmp_www-data -empty -type d -mtime 1 -delete
+0 0 * * * find /tmp/tmp_www-data -empty -type d -mtime 1 -delete
 
-0 1 * * 1 tmpreaper 30d /var/log/apache2
-
+10 0 * * * tmpreaper --runtime=480 30d /var/log/apache2
 
 
 =====================================
