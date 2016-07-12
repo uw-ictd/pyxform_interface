@@ -1,2 +1,0 @@
-LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi-py27.so
-WSGIPythonHome /usr
