@@ -1,21 +1,21 @@
 To update the deployment, perform:
 
-cd django/xlsform/xlsform/pyxform_interface
+cd ~/django/xlsform/xlsform/pyxform_interface
 sudo git pull
-sudo pip install -r requirements.pip
+sudo pip3 install -r requirements.pip
 
 ============================================
 SETUP 
 ============================================
-These are the setup instructions followed when setting up an Ubuntu 14.04 LTS instance from scratch:
+These are the setup instructions followed when setting up an Ubuntu 16.04 LTS instance from scratch:
 
 Start with an AMI image from Canonical:
 
-https://aws.amazon.com/marketplace/seller-profile/ref=dtl_pcp_sold_by?ie=UTF8&id=565feec9-3d43-413e-9760-c651546613f2
+https://cloud-images.ubuntu.com/locator/ec2/
 
-The HVM images are for larger boxes. Use the non-HVM images (PV) and select the smallest box you can (t1.tiny)
+Choose the hvm:ebs-ssd image and select the smallest box you can (t1.tiny)
 
-Choose the quicklaunch-1 security configuration. That sets up to use the april.pem SSH key and opens only port 80 for HTTP and port 22 for SSH
+Choose the quicklaunch-2 security configuration. That sets up to use the april.pem SSH key and opens only port 80 for HTTP and port 22 for SSH
 
 The image will be old, so first, update everything on it:
 
@@ -27,26 +27,25 @@ sudo apt-get upgrade
 sudo apt-get update
 sudo apt-get upgrade
 
-sudo apt-get install openjdk-7-jre-headless
-sudo apt-get install python-setuptools 
-sudo apt-get install python2.7-dev
+sudo apt-get install openjdk-8-jre-headless
+sudo apt-get install python3-setuptools 
+sudo apt-get install python3.5-dev
 sudo apt-get install git-core
 sudo apt-get install gcc libxml2-dev libxslt-dev libz-dev
 sudo apt-get install apache2
-sudo apt-get install apache2-mpm-worker
-sudo apt-get install apache2-threaded-dev
-sudo apt-get install python-pip
+sudo apt-get install apache2-dev
+sudo apt-get install python3-pip
 sudo apt-get --purge autoremove python-django
 sudo bash
-> wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+> wget https://bootstrap.pypa.io/ez_setup.py -O - | python3
 > exit
-sudo pip install --upgrade pip
+sudo pip3 install --upgrade pip
 
-sudo pip install xlrd
+sudo pip3 install xlrd
 
-sudo pip install mod_wsgi
+sudo pip3 install mod_wsgi
 
-sudo pip install Django
+sudo pip3 install Django
 
 mkdir django
 cd django
@@ -61,13 +60,15 @@ sudo vi urls.py
 comment out admin lines:
 
 # from django.contrib import admin
-# admin.autodiscover()
 
 and the admin url line:
 #   url(r'^admin/', include(admin.site.urls)),
   
 add below that admin url line (be careful to quote the include string!):
     url(r'', include('pyxform_interface.urls')),
+
+add include to import list: 
+from django.conf.urls import include, url
 
 save and exit
 ======================================
@@ -76,7 +77,7 @@ sudo vi wsgi.py
 add sys to the import list:
 import os, sys
 
-at the bottom of the file, BEFORE application = get_wsgi_application();, add:
+at the bottom of the file, BEFORE application = get_wsgi_application(), add:
 sys.path.append('/home/ubuntu/django/xlsform/xlsform')
 
 save and exit
@@ -142,14 +143,14 @@ LOGGING = {
 ======================================
 (still within /home/ubuntu/django/xlsform/xlsform)
 
-sudo git clone git://github.com/UW-ICTD/pyxform_interface.git
+sudo git clone https://github.com/uw-ictd/pyxform_interface.git
 cd pyxform_interface
-sudo pip install -r requirements.pip
+sudo pip3 install -r requirements.pip
 
 ======================================
 Now, we need to configure Apache2
 
-First, install the new mod_wsgi (mod_wsgi-py27.so) via:
+First, install the new mod_wsgi (mod_wsgi-py35.so) via:
 
 sudo mod_wsgi-express install-module
 
@@ -157,18 +158,18 @@ cd /etc/apache2
 
 copy the apache2.conf and other files into that directory. 
 
-sudo a2enmod wsgi-py27
+sudo a2enmod wsgi-py35
 sudo a2enmod reqtimeout
 
 Basic changes are to add <Directory> grants in apache2.conf and lower the log level to info.
 
-Use the supplied wsgi-py27.conf and wsgi-py27.load to launch the 
+Use the supplied wsgi-py35.conf and wsgi-py35.load to launch the 
 pyxform_interface code with the appropriate configuration.
 Set a high thread count and total connection count.
 And set overall request and response data streaming timeouts.
 
 ======================================
-sudo apt-get tmpreaper
+sudo apt-get install tmpreaper
 
 sudo vi /etc/tmpreaper.conf
 and comment out the SHOWWARNING=true line
@@ -200,7 +201,7 @@ sudo chgrp www-data django
 sudo chown www-data django
 
 And, lastly, restart the apache2 server:
-sudo /etc/init.d/apache2 restart
+sudo service apache2 restart
 
 
 
