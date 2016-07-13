@@ -201,7 +201,7 @@ sudo chgrp www-data django
 sudo chown www-data django
 
 And, lastly, restart the apache2 server:
-sudo service apache2 restart
+sudo apache2ctl restart apache2
 
 
 

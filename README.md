@@ -34,9 +34,9 @@ cd ~/django/xlsform/xlsform/pyxform_interface
 #get the latest copy of this repo
 sudo git pull
 #install the latest version of pyxform from the repository listed in requirements.pip
-sudo pip install -r requirements.pip
+sudo pip3 install -r requirements.pip
 #restart apache for changes to take effect
-sudo /etc/init.d/apache2 graceful
+sudo apache2ctl graceful
 ```
 The [UW-ICTD pyxform repository](https://github.com/UW-ICTD/pyxform) will be used for the update.
 This can be set to another repository in the requirements.pip file.
