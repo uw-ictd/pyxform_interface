@@ -45,7 +45,7 @@ sudo pip3 install xlrd
 
 sudo pip3 install mod_wsgi
 
-sudo pip3 install Django
+sudo pip3 install "Django>=1.5.0,<1.6.0"
 
 mkdir django
 cd django
